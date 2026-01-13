@@ -63,3 +63,12 @@ jobs:
           echo "Deploying build to test environment"
           # Example deployment command:
           # scp -i $SSH_PRIVATE_KEY -r ./build ubuntu@$SERVER_IP:/var/www/html/
+
+          - name: Cache node modules
+            uses: actions/cache@v4
+            with:
+            path: ~/.npm
+            key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+            restore-keys: |
+            ${{ runner.os }}-node-
+
